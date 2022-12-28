@@ -185,9 +185,6 @@ function solveMine(map, minesTotal) {
     return mapArray[row][col];
   }
 
-  function checkAround(row, col) {
-    return doAround(checkPoint, row, col);
-  }
   function checkPoint(row, col) {
     const point = getPoint(row, col);
     if (point === 'x' || point === '?') {
@@ -371,7 +368,6 @@ function solveMine(map, minesTotal) {
 
     const combinations = getCombinations(questionPoints, remainingMines);
     let mapCopy = [];
-    let lastValidMap = [];
     let validArragements = [];
 
     for (let i = 0; i < combinations.length; i++) {
