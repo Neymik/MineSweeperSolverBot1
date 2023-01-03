@@ -1,455 +1,423 @@
 
-mapa = '''0 0 0 0 0 0 ? ? ? 0 0 0 0 0 0 0 0
-? ? 0 0 0 ? ? ? ? ? ? 0 0 0 0 0 0
-? ? ? ? ? ? ? ? ? ? ? 0 0 0 0 0 0
-? ? ? ? ? ? ? ? ? ? ? 0 0 0 0 0 0
-? ? ? ? ? ? ? ? 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 ? ? ? 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 ? ? ? 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 ? ? ? 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 ? ? ? 0 0 0 0
-? ? 0 0 0 0 0 0 ? ? ? ? ? 0 0 ? ?
-? ? 0 0 ? ? ? 0 ? ? ? ? ? 0 0 ? ?
-? ? ? ? ? ? ? 0 ? ? ? 0 0 0 0 ? ?
-? ? ? ? ? ? ? 0 ? ? ? ? ? 0 0 0 0
-? ? ? ? ? ? ? 0 0 0 ? ? ? ? ? ? ?
-? ? ? ? 0 0 0 0 0 0 ? ? ? ? ? ? ?
-? ? ? ? ? ? 0 0 0 0 0 0 ? ? ? ? ?
-? ? ? ? ? ? ? ? 0 0 0 0 ? ? ? 0 0
-? ? ? ? ? ? ? ? 0 0 0 ? ? ? ? ? 0
-? ? 0 0 0 ? ? ? 0 0 0 ? ? ? ? ? 0
-? ? 0 0 0 0 0 0 0 0 ? ? ? ? ? ? 0
-0 0 0 0 0 0 0 0 0 0 ? ? ? ? ? ? ?
-? ? 0 0 0 ? ? ? 0 0 ? ? ? ? ? ? ?
-? ? 0 0 0 ? ? ? 0 0 0 0 ? ? ? ? ?'''
-result = '''0 0 0 0 0 0 1 x 1 0 0 0 0 0 0 0 0
-1 1 0 0 0 1 3 3 3 1 1 0 0 0 0 0 0
-x 3 2 2 1 3 x x 2 x 1 0 0 0 0 0 0
-2 x x 2 x 3 x 3 2 1 1 0 0 0 0 0 0
-1 2 2 2 1 2 1 1 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 1 x 1 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 1 1 1 0 0 0 0
-1 1 0 0 0 0 0 0 1 1 2 x 1 0 0 1 1
-x 1 0 0 1 1 1 0 2 x 3 1 1 0 0 1 x
-2 2 1 2 4 x 2 0 2 x 2 0 0 0 0 1 1
-x 2 2 x x x 2 0 1 1 2 1 1 0 0 0 0
-1 2 x 3 3 2 1 0 0 0 1 x 1 1 2 2 1
-1 2 2 1 0 0 0 0 0 0 1 1 1 1 x x 1
-1 x 2 2 1 1 0 0 0 0 0 0 1 2 3 2 1
-1 2 x 2 x 2 1 1 0 0 0 0 1 x 1 0 0
-1 2 1 2 1 2 x 1 0 0 0 1 2 3 2 1 0
-x 1 0 0 0 1 1 1 0 0 0 2 x 4 x 2 0
-1 1 0 0 0 0 0 0 0 0 1 3 x 4 x 2 0
-0 0 0 0 0 0 0 0 0 0 1 x 2 2 2 3 2
-1 1 0 0 0 1 1 1 0 0 1 1 2 1 3 x x
-x 1 0 0 0 1 x 1 0 0 0 0 1 x 3 x 3'''
-mines = 41
 
-def open(row, column):
-  point = mapMap(result)[row][column]
+MAPA = '''0 0 0 ? ? ? ? ? ? 0 0 0 0 0 ? ? ? 0 0 ? ? ? ? ? ? ? ?
+? ? 0 ? ? ? ? ? ? 0 0 0 0 0 ? ? ? ? ? ? ? ? ? ? ? ? ?
+? ? ? ? 0 0 0 0 0 0 ? ? ? 0 ? ? ? ? ? ? 0 ? ? ? ? ? ?
+? ? ? ? 0 0 0 0 0 0 ? ? ? 0 0 0 0 ? ? ? 0 ? ? ? ? ? ?
+0 ? ? ? 0 0 0 0 0 0 ? ? ? 0 0 0 0 0 0 0 0 ? ? ? ? ? ?
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ? ? ? ? 0'''
+RESULT = '''0 0 0 1 x 1 1 x 1 0 0 0 0 0 1 1 1 0 0 1 x 3 x 3 1 2 1
+1 1 0 1 1 1 1 1 1 0 0 0 0 0 1 x 1 1 1 2 1 3 x 3 x 2 x
+x 2 1 1 0 0 0 0 0 0 1 1 1 0 1 1 1 1 x 1 0 2 2 3 1 3 2
+1 2 x 1 0 0 0 0 0 0 1 x 1 0 0 0 0 1 1 1 0 1 x 2 1 2 x
+0 1 1 1 0 0 0 0 0 0 1 1 1 0 0 0 0 0 0 0 0 1 2 3 x 2 1
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 x 2 1 0'''
+MINES = 16
+
+def open(row, column): # assumed to be a task description
+  point = map_matrix[row][column]
   if point == 'x':
-    raise Exception('Game Over row ' + str(row) + ' column ' + str(column))
+    raise Exception(f'Game Over row {row} column {column} is a mine')
   return point
 
-PRINT = True
+PRINT = False
 MINE_SIMULATION_LIMIT = 20
 
-def mapMap(mapa):
+def matrix_to_list(mapa):
   return list(map(lambda row: row.split(' '), mapa.split('\n')))
 
-def demapMap(mapa):
-  return '\n'.join(map(lambda row: ' '.join(list(map(lambda col: str(col),row))), mapa))
+map_matrix = matrix_to_list(RESULT)
 
-def copyMap(mapa):
+def matrix_to_string(mapa):
+  return '\n'.join(map(lambda row: ' '.join(map(str, row)), mapa))
+
+def copy_matrix(mapa):
   return [x[:] for x in mapa] # optimization
 
-def solve_mine(map, minesTotal):
+def solve_mine(gameMap, mines_total):
 
-  mapArray = mapMap(map)
+  map_array = matrix_to_list(gameMap)
   actions = []
-  minesSet = 0
+  mines_set = 0
 
-  def runThroughMap(runner):
-    for row in range (0, len(mapArray)):
-      for col in range (0, len(mapArray[0])):
+  def run_through_map(runner):
+    for row in range(0, len(map_array)):
+      for col in range(0, len(map_array[0])):
         runner(row, col)
 
-  def doAround(func, row, col): # optimization
+  def do_around(func, row, col): # optimization
 
-    returnArray = []
+    result = []
 
-    mapArrayRowLen = len(mapArray)
-    mapArrayColLen = len(mapArray[0])
-    colm1 = col - 1 >= 0
-    colp1 = col + 1 < mapArrayColLen
+    map_array_row_len = len(map_array)
+    map_array_col_len = len(map_array[0])
+    has_prev_col = col - 1 >= 0
+    has_next_col = col + 1 < map_array_col_len
 
-    if (row + 1 < mapArrayRowLen):
-      returnArray.append(func(row + 1, col    ))
-      if (colp1):
-        returnArray.append(func(row + 1, col + 1))
-      if (colm1):
-        returnArray.append(func(row + 1, col - 1))
+    if row + 1 < map_array_row_len:
+      result.append(func(row + 1, col    ))
+      if has_next_col:
+        result.append(func(row + 1, col + 1))
+      if has_prev_col:
+        result.append(func(row + 1, col - 1))
 
-    if (row - 1 >= 0):
-      returnArray.append(func(row - 1, col    ))
-      if (colp1):
-        returnArray.append(func(row - 1, col + 1))
-      if (colm1):
-        returnArray.append(func(row - 1, col - 1))
+    if row - 1 >= 0:
+      result.append(func(row - 1, col    ))
+      if has_next_col:
+        result.append(func(row - 1, col + 1))
+      if has_prev_col:
+        result.append(func(row - 1, col - 1))
     
-    if (colp1):
-      returnArray.append(func(row    , col + 1))
-    if (colm1):
-      returnArray.append(func(row    , col - 1))
+    if has_next_col:
+      result.append(func(row    , col + 1))
+    if has_prev_col:
+      result.append(func(row    , col - 1))
 
-    return returnArray
+    return result
 
-  def openAround(row, col):
-    doAround(openPoint, row, col)
-  def openPoint(row, col):
-    if (mapArray[row][col] == '?'):
-      mapArray[row][col] = open(row, col)
+  def open_around(row, col):
+    do_around(open_point, row, col)
+  def open_point(row, col):
+    if map_array[row][col] == '?':
+      map_array[row][col] = open(row, col)
       actions.append({
-        'action': checkPoint,
+        'action': check_point,
         'row': row,
         'col': col
       })
 
-  def getAround(row, col):
-    return doAround(getPoint, row, col)
-  def getPoint(row, col):
-    return mapArray[row][col]
+  def get_around(row, col):
+    return do_around(get_point, row, col)
+  def get_point(row, col):
+    return map_array[row][col]
 
-  def checkPoint(row, col):
-    point = getPoint(row, col)
-    if (point == 'x' or point == '?'):
+  def check_point(row, col):
+    point = get_point(row, col)
+    if point == 'x' or point == '?':
       return
 
-    pointsAround = getAround(row, col)
-    minesAround = len(list(filter(lambda point: point == 'x', pointsAround)))
-    questionsAround = len(list(filter(lambda point: point == '?', pointsAround)))
-    if (not questionsAround):
+    points_around = get_around(row, col)
+    mines_around = len(list(filter(lambda point: point == 'x', points_around)))
+    questions_around = len(list(filter(lambda point: point == '?', points_around)))
+    if not questions_around:
       return
-    if ((int(point) - minesAround) == questionsAround):
+    if (int(point) - mines_around) == questions_around:
       actions.append({
-        'action': setMineAround,
+        'action': set_mine_around,
         'row': row,
         'col': col
       })
-    elif (int(point) == minesAround):
+    elif int(point) == mines_around:
       actions.append({
-        'action': openAround,
+        'action': open_around,
         'row': row,
         'col': col
       })
 
-  def setMineAround(row, col):
-    doAround(setMinePoint, row, col)
-  def setMinePoint(row, col):
-    nonlocal minesSet
-    if (mapArray[row][col] == '?'):
-      mapArray[row][col] = 'x'
-      minesSet += 1
+  def set_mine_around(row, col):
+    do_around(set_mine_point, row, col)
+  def set_mine_point(row, col):
+    nonlocal mines_set
+    if map_array[row][col] == '?':
+      map_array[row][col] = 'x'
+      mines_set += 1
 
-  def tryFindIntersections():
+  def try_find_intersections():
 
-    pointsNearQuestions = []
+    points_near_questions = []
 
-    def pointsNearQuestionsChecker(row, col):
-      if (mapArray[row][col] != '?' and mapArray[row][col] != 'x'):
+    def points_near_questions_checker(row, col):
+      if map_array[row][col] in '?x':
+        return
 
-        pointsAround = doAround(
-          lambda row1, col1: {
-            'row': row1,
-            'col': col1
-          }, row, col)
-        questionsAround = list(filter(lambda point: mapArray[point['row']][point['col']] == '?', pointsAround))
+      points_around = do_around(
+        lambda row1, col1: {
+          'row': row1,
+          'col': col1
+        }, row, col)
+      questions_around = list(filter(lambda point: map_array[point['row']][point['col']] == '?', points_around))
 
-        if (len(questionsAround)):
-          minesAround = list(filter(lambda point: mapArray[point['row']][point['col']] == 'x', pointsAround))
-          pointsNearQuestions.append({
-            'questionsAround': questionsAround,
-            'minesAround': minesAround,
-            'row': row,
-            'col': col
-          })
+      if questions_around:
+        mines_around = list(filter(lambda point: map_array[point['row']][point['col']] == 'x', points_around))
+        points_near_questions.append({
+          'questions_around': questions_around,
+          'mines_around': mines_around,
+          'row': row,
+          'col': col
+        })
 
-    def getPointPairs():
-      pointPairs = []
-      for i in range (0, len(pointsNearQuestions)):
-        pointFirst = pointsNearQuestions[i]
-        for j in range (0, len(pointsNearQuestions)):
-          pointSecond = pointsNearQuestions[j]
-          if (i == j):
+    def get_point_pairs():
+      point_pairs = []
+      for i in range (0, len(points_near_questions)):
+        point_first = points_near_questions[i]
+        for j in range (0, len(points_near_questions)):
+          point_second = points_near_questions[j]
+          if i == j:
             continue
-          pointPairIntersections = getPointPairIntersections(pointFirst, pointSecond)
-          if (not pointPairIntersections):
+          point_pair_intersections = get_point_pair_intersections(point_first, point_second)
+          if not point_pair_intersections:
             continue
-          pointPairs.append({
-            'pointPairIntersections': pointPairIntersections,
-            'pointFirst': pointFirst,
-            'pointSecond': pointSecond
+          point_pairs.append({
+            'point_pair_intersections': point_pair_intersections,
+            'point_first': point_first,
+            'point_second': point_second
           })
-      return pointPairs
+      return point_pairs
 
-    def getPointPairIntersections(pointFirst, pointSecond):
-      pointsAroundFirst = pointFirst['questionsAround']
-      pointsAroundSecond = pointSecond['questionsAround']
-      pointsIntersections = []
+    def get_point_pair_intersections(point_first, point_second):
+      points_around_first = point_first['questions_around']
+      points_around_second = point_second['questions_around']
+      points_intersections = []
 
-      for i in range (0, len(pointsAroundFirst)):
-        pointAroundFirst = pointsAroundFirst[i]
-        for j in range (0, len(pointsAroundSecond)):
-          pointAroundSecond = pointsAroundSecond[j]
-          if (pointAroundFirst['row'] == pointAroundSecond['row'] and pointAroundFirst['col'] == pointAroundSecond['col']):
-            pointsIntersections.append(pointAroundFirst)
+      for point_around_first in points_around_first:
+        for point_around_second in points_around_second:
+          if point_around_first['row'] == point_around_second['row'] and point_around_first['col'] == point_around_second['col']:
+            points_intersections.append(point_around_first)
 
-      if (not len(pointsIntersections)):
+      if not points_intersections:
         return False
-      return pointsIntersections
+      return points_intersections
 
-    runThroughMap(lambda row, col:
-      pointsNearQuestionsChecker(row, col)
+    run_through_map(lambda row, col:
+      points_near_questions_checker(row, col)
     )
 
-    pointPairs = getPointPairs()
+    point_pairs = get_point_pairs()
 
-    for i in range (0, len(pointPairs)):
-      pointPair = pointPairs[i]
-      pointFirst = pointPair['pointFirst']
-      pointSecond = pointPair['pointSecond']
+    for point_pair in point_pairs:
+      p1 = point_pair['point_first']
+      p2 = point_pair['point_second']
 
-      pointPairIntersectionsCount = len(pointPair['pointPairIntersections'])
+      point_pair_intersections = len(point_pair['point_pair_intersections'])
 
-      pointFirstQuestionsAroundCount = len(pointFirst['questionsAround'])
-      pointFirstMinesTotalAroundCount = int(mapArray[pointFirst['row']][pointFirst['col']])
-      pointFirstMinesSetAroundCount = len(pointFirst['minesAround'])
-      pointFirstMinesOutsideIntersectionPessimistic = pointFirstQuestionsAroundCount - pointPairIntersectionsCount + pointFirstMinesSetAroundCount
-      pointFirstMinesAtIntersectionMinimal = pointFirstMinesTotalAroundCount - pointFirstMinesOutsideIntersectionPessimistic
+      p1_questions_around = len(p1['questions_around'])
+      p1_mines_total_around = int(map_array[p1['row']][p1['col']])
+      p1_mines_set_around = len(p1['mines_around'])
+      p1_mines_outside_intersection_pessimistic = p1_questions_around - point_pair_intersections + p1_mines_set_around
+      p1_mines_at_intersection_minimal = p1_mines_total_around - p1_mines_outside_intersection_pessimistic
 
-      pointSecondQuestionsAroundCount = len(pointSecond['questionsAround'])
-      pointSecondMinesTotalAroundCount = int(mapArray[pointSecond['row']][pointSecond['col']])
-      pointSecondMinesSetAroundCount = len(pointSecond['minesAround'])
-      pointSecondMinesUndetectedAround = pointSecondMinesTotalAroundCount - pointSecondMinesSetAroundCount
+      p2_questions_around = len(p2['questions_around'])
+      p2_mines_total_around_count = int(map_array[p2['row']][p2['col']])
+      p2_mines_set_around_count = len(p2['mines_around'])
+      p2_mines_undetected_around = p2_mines_total_around_count - p2_mines_set_around_count
 
-      if (pointPairIntersectionsCount >= pointSecondQuestionsAroundCount): # optimization
+      if point_pair_intersections >= p2_questions_around: # optimization
         continue
 
-      if (pointFirstMinesAtIntersectionMinimal == pointSecondMinesUndetectedAround):
-        for j in range (0, len(pointSecond['questionsAround'])):
-          currentQuestion = pointSecond['questionsAround'][j]
-          isIntersection = False
+      if p1_mines_at_intersection_minimal == p2_mines_undetected_around:
+        for current_question in p2['questions_around']:
+          is_intersection = False
 
-          for k in range (0, len(pointPair['pointPairIntersections'])):
-            currentIntersection = pointPair['pointPairIntersections'][k]
-            if (currentQuestion['row'] == currentIntersection['row'] and currentQuestion['col'] == currentIntersection['col']):
-              isIntersection = True
+          for current_intersection in point_pair['point_pair_intersections']:
+            if current_question['row'] == current_intersection['row'] and current_question['col'] == current_intersection['col']:
+              is_intersection = True
               break
 
-          if (isIntersection):
+          if is_intersection:
             continue
 
-          openPoint(currentQuestion['row'], currentQuestion['col'])
+          open_point(current_question['row'], current_question['col'])
 
         return True
 
     return False
 
 
-  def trySimulateMines():
-    nonlocal minesSet
+  def try_simulate_mines():
+    nonlocal mines_set
 
-    remainingMines = minesTotal - minesSet
-    questionPoints = []
-    mapCopy = []
-    validArragements = []
-    questionPointsAway = []
+    remaining_mines = mines_total - mines_set
 
-    def checkValidArragements():
-      for row in range (0, len(mapArray)):
-        for col in range (0, len(mapArray[0])):
-          if (mapCopy[row][col] == 'x' or mapCopy[row][col] == '?'):
+    if remaining_mines > MINE_SIMULATION_LIMIT:
+      print('Too many mines to simulate!')
+      return False
+
+    question_points = []
+    map_copy = []
+    valid_arragements = []
+    question_points_away = []
+
+    def check_valid_arragements():
+      for row in range (0, len(map_array)):
+        for col in range (0, len(map_array[0])):
+          if map_copy[row][col] in 'x?':
             continue
-          pointsAround = doAround(
-            lambda row1, col1: 
-              mapCopy[row1][col1]
+          points_around = do_around(
+            lambda row1, col1:
+              map_copy[row1][col1]
             , row, col)
-          minesAround = len(list(filter(lambda point1: point1 == 'x', pointsAround)))
+          mines_around = len(list(filter(lambda point1: point1 == 'x', points_around)))
           
-          if (int(mapCopy[row][col]) != minesAround):
+          if int(map_copy[row][col]) != mines_around:
             return False
       return True
 
-    def getCombinations(array, count):
+    def get_combinations(array, count):
       combinations = []
       
-      if (count == 1):
+      if count == 1:
         for i in range (0, len(array)):
           combinations.append([array[i]])
         return combinations
 
       for i in range (0, len(array)):
 
-        combinations1 = getCombinations(array[i + 1:], count - 1)
+        combinations1 = get_combinations(array[i + 1:], count - 1)
         for j in range (0, len(combinations1)):
           combinations1[j].insert(0, array[i])
         combinations.extend(combinations1)
 
       return combinations
 
-    def setupQuestionPoints(row, col):
-      if (mapArray[row][col] == '?'):
-        pointsAround = doAround(
-          lambda row1, col1: 
-            mapArray[row1][col1]
-          , row, col)
-        notQuestionsAround = len(list(filter(lambda point1: point1 != '?', pointsAround)))
-        if (notQuestionsAround):
-          questionPoints.append({
-            'row': row,
-            'col': col
-          })
-        else:
-          questionPointsAway.append({
-            'row': row,
-            'col': col
-          })
+    def setup_question_points(row, col):
+      if map_array[row][col] == '?':
+        return
+      points_around = do_around(
+        lambda row1, col1:
+          map_array[row1][col1]
+        , row, col)
+      not_questions_around = len(list(filter(lambda point1: point1 != '?', points_around)))
+      if not_questions_around:
+        question_points.append({
+          'row': row,
+          'col': col
+        })
+      else:
+        question_points_away.append({
+          'row': row,
+          'col': col
+        })
 
     # optimization
-    runThroughMap(setupQuestionPoints)
-    awayMinesPlacesCount = min(remainingMines, len(questionPointsAway))
-    questionPoints.extend(questionPointsAway[:awayMinesPlacesCount + 1])
+    run_through_map(setup_question_points)
+    away_mines_places_count = min(remaining_mines, len(question_points_away))
+    question_points.extend(question_points_away[:away_mines_places_count + 1])
 
-    if (remainingMines > MINE_SIMULATION_LIMIT):
-      print('Too many mines to simulate!')
-      return False
+    combinations = get_combinations(question_points, remaining_mines)
 
-    combinations = getCombinations(questionPoints, remainingMines)
+    for combination in combinations:
+      map_copy = copy_matrix(map_array)
 
-    for i in range (0, len(combinations)):
-      mapCopy = copyMap(mapArray)
+      for point in combination:
+        map_copy[point['row']][point['col']] = 'x'
 
-      for j in range (0, len(combinations[i])):
-        point = combinations[i][j]
-        mapCopy[point['row']][point['col']] = 'x'
+      valid_arragement = check_valid_arragements()
 
-      validArragement = checkValidArragements()
-
-      if (not validArragement):
+      if not valid_arragement:
         continue
 
-      validArragements.append(mapCopy)
+      valid_arragements.append(map_copy)
 
-      # if (PRINT):
+      # if PRINT:
       #   print('combination', combinations[i])
-      #   print('mapCopy', mapCopy)
+      #   print('map_copy', map_copy)
 
-    # if (PRINT):
-    #   print('validArragements', len(validArragements[0]))
-    #   print('firstValidArragement', demapMap(validArragements[0]))
+    # if PRINT:
+    #   print('valid_arragements', len(valid_arragements[0]))
+    #   print('firstvalid_arragement', matrix_to_string(valid_arragements[0]))
 
-    if (not len(validArragements)):
+    if not valid_arragements:
       return False
 
-    if (len(validArragements) == 1):
-      minesSet = minesTotal
-      return validArragements[0]
+    if len(valid_arragements) == 1:
+      mines_set = mines_total
+      return valid_arragements[0]
 
     # check if there is a mine or no mine at the same place in all valid arragements
-    mapWithSameMines = copyMap(mapArray)
-    thereIsTheSame = False
+    map_with_same_mines = copy_matrix(map_array)
+    there_is_the_same = False
 
-    def sameMinesSetRunner (row, col):
-      if (validArragements[i][row][col] == 'x'):
-        if (mapWithSameMines[row][col] == '?'):
-          mapWithSameMines[row][col] = {
-            'sameMines': 1
+    def same_mines_set_runner (row, col):
+      if valid_arragement[row][col] == 'x':
+        if map_with_same_mines[row][col] == '?':
+          map_with_same_mines[row][col] = {
+            'same_mines': 1
           }
-        elif (type(mapWithSameMines[row][col]) is dict):
-          mapWithSameMines[row][col]['sameMines'] += 1
+        elif type(map_with_same_mines[row][col]) is dict:
+          map_with_same_mines[row][col]['same_mines'] += 1
 
-    for i in range (0, len(validArragements)):
-      runThroughMap(sameMinesSetRunner)
+    for valid_arragement in valid_arragements:
+      run_through_map(same_mines_set_runner)
     
-    for i in range (0, len(questionPoints)):
-      point = questionPoints[i]
-      if (mapWithSameMines[point['row']][point['col']] == '?'):
-        thereIsTheSame = True
-        openPoint(point['row'], point['col'])
-      elif (type(mapWithSameMines[point['row']][point['col']]) is dict):
-        if (mapWithSameMines[point['row']][point['col']]['sameMines'] == len(validArragements)):
-          thereIsTheSame = True
-          mapArray[point['row']][point['col']] = 'x'
-          minesSet += 1
+    for point in question_points:
+      if map_with_same_mines[point['row']][point['col']] == '?':
+        there_is_the_same = True
+        open_point(point['row'], point['col'])
+      elif type(map_with_same_mines[point['row']][point['col']]) is dict:
+        if map_with_same_mines[point['row']][point['col']]['same_mines'] == len(valid_arragements):
+          there_is_the_same = True
+          map_array[point['row']][point['col']] = 'x'
+          mines_set += 1
 
-    if (PRINT):
-      print(demapMap(mapWithSameMines))
+    if PRINT:
+      print(matrix_to_string(map_with_same_mines))
 
-    return thereIsTheSame
+    return there_is_the_same
 
 
-  while (True):
-    if (PRINT): 
+  while True:
+    if PRINT: 
       print('cycle================cycle')
-    cycleStartMap = demapMap(mapArray)
-    runThroughMap(lambda row, col:
+    cycle_start_map = matrix_to_string(map_array)
+    run_through_map(lambda row, col:
       actions.append({
-        'action': checkPoint,
+        'action': check_point,
         'row': row,
         'col': col
       })
     )
 
-    while (len(actions)):
-      if (PRINT):
-        print(demapMap(mapArray))
+    while actions:
+      if PRINT:
+        print(matrix_to_string(map_array))
       action = actions.pop(0)
-      if (PRINT):
+      if PRINT:
         print(action)
       action['action'](action['row'], action['col'])
 
-    cycleEndMap = demapMap(mapArray)
+    cycle_end_map = matrix_to_string(map_array)
 
-    if (cycleStartMap == cycleEndMap):
-      if (minesSet != minesTotal):
-        tryFindIntersectionsResult = tryFindIntersections()
-        if (tryFindIntersectionsResult):
+    if cycle_start_map == cycle_end_map:
+      if mines_set != mines_total:
+        try_find_intersections_result = try_find_intersections()
+        if try_find_intersections_result:
           continue
-        trySimulateMinesResult = trySimulateMines()
-        if (trySimulateMinesResult):
-          if (type(trySimulateMinesResult) is list):
-            mapArray = trySimulateMinesResult
+        try_simulate_mines_result = try_simulate_mines()
+        if try_simulate_mines_result:
+          if type(try_simulate_mines_result) is list:
+            map_array = try_simulate_mines_result
           continue
-      if (PRINT):
-        print(demapMap(mapArray))
+      if PRINT:
+        print(matrix_to_string(map_array))
       break
 
-    cycleEndMap = demapMap(mapArray)
+    cycle_end_map = matrix_to_string(map_array)
 
-  if (PRINT):
-    print('minesSet', minesSet, 'minesTotal', minesTotal)
+  if PRINT:
+    print('mines_set', mines_set, 'mines_total', mines_total)
 
-  if (minesSet != minesTotal):
+  if mines_set != mines_total:
     return '?'
 
   # check if all questions are opened
-  runThroughMap(lambda row, col:
-    openPoint(row, col) if mapArray[row][col] == '?' else None
+  run_through_map(lambda row, col:
+    open_point(row, col) if map_array[row][col] == '?' else None
   )
 
-  return demapMap(mapArray)
+  return matrix_to_string(map_array)
 
 
-
-print(solve_mine(mapa, mines))
+import datetime 
+a = datetime.datetime.now()
+print(a)
+solve_mine(MAPA, MINES)
+b = datetime.datetime.now()
+print(b)
+print(b - a)
 
 # import cProfile
-# for i in range(10):
-#   cProfile.run('solve_mine(mapa, mines)', 'perfstats')
+# for i in range(1):
+#   cProfile.run('solve_mine(MAPA, MINES)', 'perfstats')
 # import pstats
 # from pstats import SortKey
 # p = pstats.Stats('perfstats')
